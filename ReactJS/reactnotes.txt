@@ -1,0 +1,30 @@
+>es 6
+>node
+>IDE
+>es 6
+>node.js
+>webpavk
+>react>redux
+
+
+
+1. download IDE visual studio code
+2. np install --> npm install create-react-app -g.....tool to create es6 application
+3. project creation --> create-react-app <APP_NAME>
+	set npm path variable - C:\Users\njai49\AppData\Roaming\npm
+4. "code ." --> command not found (open folder/app in visual studio) 
+
+topics
+>INTRODUCTION TO JAVASCRIPT/LANGUAGE FUNDAMENTALS
+>FUNCTIONS
+>OBJECT ORIENTED PROGRAMMING IN JS
+>DOM PROGRAMMING -REACT
+>AJAX PROGRAMMING -REACT
+
+
+entry point src>index.js
+automation done by react app > auto compilation
+npm start --> to start the server
+
+
+INTRODUCTION TO JAVASCRIPT/LANGUAGE FUNDAMENTALS

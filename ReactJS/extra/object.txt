@@ -1,0 +1,149 @@
+/*/**
+ * Object oriented Concepts and Implementation
+ * 
+ * Object: Memory
+ * Object: data + behavior
+ * data is declared using variables - instance variables
+ * behavior is declared using functions - instance methods
+ * this.id - instance variable
+ * let/const/var id =  local variable
+ * 
+ * Javascript is fundamentally class free object oriented pl.
+ *  >No classes to create objects
+ * How to create object?
+ * Creational Pattern
+ * 1.constructor pattern
+ *    Dervided from java pl.
+ *   function pattern - es 5
+ *   class pattern - es6
+ * 
+ * How to initalize data?
+ * >direct / hardcoded 
+ * >after object creation
+ * >During object creation
+ * Object relationship:
+ *   >HAS-A
+ *       
+ *   >IS-A
+ *     inheritance
+ *   javascript is object inheritance.
+ * Object inheritance other objects during runtime.
+ * In js every object has super object -Prototype which has parent
+ * called "Object".
+ * 
+ *  YourObject----Prototype---Object
+ * Every object is linked via "__proto__" instance hidden variable
+ * 
+ *  
+ * 2.literal pattern
+ *    javascript pattern
+ */
+
+
+//function pattern:constructor
+
+function Address(city = 'defaultcity') {
+    this.city = city;
+}
+//Parent classs
+function Person() {
+    this.greet = 'Welcome';
+}
+
+function Employee(id = 1, name = 'defaultname', address = new Address()) {
+    //instance variables
+    this.id = id; //1;
+    this.name = name; // 'Subramanian';
+    //has a
+    this.address = address;
+    //instance methods
+    this.calculateSalary = function () {
+        return 1000;
+    }
+}
+//call function
+let employee = new Employee(1, 'ram', new Address('Chennai')); //constructor calling
+//knowing object structure
+console.log(employee);
+
+//exclit inheritance
+employee.__proto__ = new Person();
+
+//after object creation
+//employee.name = 'Ram' //setter
+//how to use instance variables/methods using .operator
+console.log(`Id ${employee.id}`); //getter method is called
+console.log(`name ${employee.name}`);
+console.log(`Greet ${employee.greet}`);
+
+console.log(`city ${employee.address.city}`);
+
+console.log(`salary ${employee.calculateSalary()}`);
+
+class Order {
+    orderid;
+    constructor(orderid = 'AA001') {
+        this.orderid = orderid;
+    }
+}
+
+class CustomerParent {
+    greet = 'CustomerParent';
+}
+
+//ES 6 Class declaration
+class Customer extends CustomerParent {
+    //instance variables
+    id; //= 1;
+    name; //= 'Subramanian';
+    order;
+    //es 6 special function:built in function
+    constructor(id = 1, name = 'default', order = new Order()) {
+        super();
+        this.id = id;
+        this.name = name;
+        this.order = order;
+    }
+    //instance methods
+    calculateGST = () => 1000 - 100;
+}
+let customer = new Customer(1, 'ram');
+console.log(customer);
+
+//customer.name = 'Karthik'
+console.log(`Id ${customer.id}`); //getter method is called
+console.log(`name ${customer.name}`);
+console.log(`greet ${customer.greet}`);
+
+console.log(`orderId ${customer.order.orderid}`);
+
+console.log(`gst ${customer.calculateGST()}`);
+//static variables: es 5 dont have static concept but es 6 has
+//static variables,methods can be accessed without creating
+//object
+class Message {
+    static success = 'success';
+    static doStuff() {
+        console.log('static method');
+    }
+}
+console.log(Message.success);
+Message.doStuff();
+//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+//literals are used to create object
+//liteals generally used to declare model data in applications
+
+let book = {
+    bookid: 1,
+    author: 'Ram',
+    //has-a
+    chapter: {
+        name: 'javascript'
+    },
+    getPrice: () => 1000
+};
+book.author = 'John'; //setter
+console.log(`Book id ${book.id}`); //getter
+console.log(`Book author ${book.author}`);
+console.log(`chapter ${book.chapter.name}`);
+console.log(`Price ${book.getPrice()}`);*/

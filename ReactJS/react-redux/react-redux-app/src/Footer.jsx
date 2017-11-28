@@ -1,0 +1,6 @@
+import React from 'react';
+//Footer
+export const Footer = () => (
+<div>
+    <h1>Footer</h1>
+</div>);

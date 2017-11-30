@@ -1,57 +1,83 @@
-/**
- * List rendering
- */
 import React, { Component } from 'react';
-import { render } from 'react-dom';
+import {render} from 'react-dom';
+import { createStore } from 'redux';
+import { connect, Provider } from 'react-redux';
+import 'bootstrap/dist/css/bootstrap.css';
+
 
 /**
- * ul
- *   <li>1</li>
- *   <li>2</li>
- *  array.map(function) - iterate
+ * react-redux binding lib
+ * npm install --save react-redux
+ *  Steps:
+ *  >Redux
  */
-//Component:variable Pattern
-/* const List=numberList.map((item,index) => { 
-    return (<li key={index}>{item}</li>);
-}); */
+///Redux - State Layer
+const couterReducer = (counter = 0, action) => {
+    switch (action.type) {
+        case 'INCREMENT':
+            return counter + 1;
+        case 'DECREMENT':
+            return counter - 1;
+        default:
+            return counter;
+    }
+};
+const appStore = createStore(couterReducer);
+/////////////////////////////////////////////////////////////////////
+//Actions:
+const INCREMENT_ACTION = {
+    type: 'INCREMENT'
+}
+/**React Principle
+ * 1.The data should be passed as prop-Statelesss Application.
+ * 2.Data(state) now is availbale in redux.How to access redux
+ *   state inside react as a prop.
+ *   react-redux lib defines configuration:
+ *    Mapping redux state with React as prop
+ *    State of redux becomes prop of React
+ */
 
-//const List=numberList.map((item,index) =>(<li key={index}>{item}</li>));
-
-//const ListApp = () => (<ul>{List}</ul>)
-
-/* const ListApp = () => (<ul>
-    {numberList.map((item, index) => {
-        return (<li key={index}>{item}</li>);
-    })}</ul>); */
-/* const ListApp = ({ numberList }) => (
-    <ul>
-    {numberList.map((item, index) =>
-            (<li key={index}>{item}</li>))}
-    </ul>);
-    
-
-const numList = [1, 2, 3, 4, 5, 6];
-render(<ListApp numberList={numList} />, root); */
-//Employee List
-
-const ListApp = ({ empList }) => (
-    <ul>
-    {empList.map((employee, index) =>
-            (<li key={index}>
-                <span>{employee.id}</span>{employee.name}
-            </li>))}
-    </ul>);
-
-const EMPLOYEES = [
-    { id: 11, name: 'Mr. Nice' },
-    { id: 12, name: 'Narco' },
-    { id: 13, name: 'Bombasto' },
-    { id: 14, name: 'Celeritas' },
-    { id: 15, name: 'Magneta' },
-    { id: 16, name: 'RubberMan' },
-    { id: 17, name: 'Dynama' },
-    { id: 18, name: 'Dr IQ' },
-    { id: 19, name: 'Magma' },
-    { id: 20, name: 'Tornado' }
-];
-render(<ListApp empList={EMPLOYEES} />, root); 
+//Configuration : Redux-state to React-prop conversion
+function mapStateToProps(counter) {
+    return {
+        //value(React's prop):counter(redux's state)   
+        value: counter //or counter
+    }
+}
+//Configuration : Redux-Dispatch(Action) to React-Prop(eventListener)
+//configuration:Action Mapping
+//Map Redux action to Component prop(function)
+// Map Redux actions to component props
+function mapDispatchToProps(dispatch) {
+    return {
+        onIncrement: () => dispatch(INCREMENT_ACTION)
+    }
+}
+/////////////////////////////////////////////////////////////////
+//React :View
+class Counter extends Component {
+    render() {
+        const { value, onIncrement } = this.props;
+    return (
+        <div className="container">
+         <h1>React-Redux App</h1>      
+         <p className="badge badge-secondary">
+                {value}
+         </p>
+         <br />
+         <button onClick={onIncrement}>Increment</button>
+      </div>
+    )
+  }
+}
+//Binding Redux + React
+// Connected Component // Higher Order Compoent
+const CounterApp = connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Counter);
+//You have to pass  Redux store to React as prop.
+//How to pass store Object to React Application
+render(<Provider store={appStore}>
+    <CounterApp/>
+</Provider>, root);
